@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: pg_gateway
+    environment:
+      POSTGRES_DB: payment_gateway
+      POSTGRES_USER: gateway_user
+      POSTGRES_PASSWORD: gateway_pass
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U gateway_user -d payment_gateway"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - gateway_network
+
+  api:
+    build:
+      context: ./backend
+    container_name: gateway_api
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://gateway_user:gateway_pass@postgres:5432/payment_gateway
+      PORT: 8000
+      TEST_MERCHANT_EMAIL: test@example.com
+      TEST_API_KEY: key_test_abc123
+      TEST_API_SECRET: secret_test_xyz789
+      UPI_SUCCESS_RATE: 0.90
+      CARD_SUCCESS_RATE: 0.95
+      PROCESSING_DELAY_MIN: 5000
+      PROCESSING_DELAY_MAX: 10000
+      TEST_MODE: "false"
+      TEST_PAYMENT_SUCCESS: "true"
+      TEST_PROCESSING_DELAY: 1000
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - gateway_network
+
+  dashboard:
+    build:
+      context: ./frontend
+    container_name: gateway_dashboard
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
+    networks:
+      - gateway_network
+
+  checkout:
+    build:
+      context: ./checkout-page
+    container_name: gateway_checkout
+    ports:
+      - "3001:80"
+    depends_on:
+      - api
+    networks:
+      - gateway_network
+
+volumes:
+  postgres_data:
+
+networks:
+  gateway_network:
+    driver: bridge

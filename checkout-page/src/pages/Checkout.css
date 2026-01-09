@@ -1,0 +1,242 @@
+.checkout-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.checkout-loading,
+.checkout-error {
+  color: white;
+  font-size: 18px;
+}
+
+.checkout-container {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  padding: 40px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.order-summary {
+  margin-bottom: 30px;
+  text-align: center;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 20px;
+}
+
+.order-summary h2 {
+  color: #333;
+  margin: 0 0 20px 0;
+  font-size: 24px;
+}
+
+.order-detail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #666;
+}
+
+.order-detail span:last-child {
+  font-weight: bold;
+  color: #667eea;
+  font-size: 18px;
+}
+
+.payment-methods {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.method-btn {
+  padding: 15px;
+  border: 2px solid #ddd;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s;
+  color: #666;
+}
+
+.method-btn:hover {
+  border-color: #667eea;
+}
+
+.method-btn.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.payment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+input {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.card-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.payment-form button {
+  padding: 14px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s;
+  margin-top: 10px;
+}
+
+.payment-form button:hover {
+  transform: translateY(-2px);
+}
+
+.processing-state {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f0f0f0;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+[data-test-id="processing-message"] {
+  color: #667eea;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.success-state,
+.error-state {
+  text-align: center;
+  padding: 20px;
+}
+
+.success-state h2 {
+  color: #4caf50;
+  margin: 0 0 20px 0;
+}
+
+.success-state {
+  animation: successPulse 0.5s ease;
+}
+
+@keyframes successPulse {
+  0% {
+    transform: scale(0.95);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.error-state h2 {
+  color: #d32f2f;
+  margin: 0 0 20px 0;
+}
+
+.result-detail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  color: #666;
+}
+
+.result-detail span:last-child {
+  font-family: 'Courier New', monospace;
+  color: #667eea;
+  word-break: break-all;
+}
+
+[data-test-id="success-message"],
+[data-test-id="error-message"] {
+  display: block;
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: #666;
+}
+
+.error-state [data-test-id="error-message"] {
+  color: #d32f2f;
+}
+
+[data-test-id="retry-button"] {
+  padding: 12px 30px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: transform 0.2s;
+}
+
+[data-test-id="retry-button"]:hover {
+  transform: translateY(-2px);
+}
