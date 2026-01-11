@@ -77,6 +77,9 @@ The system automatically seeds a test merchant on startup:
 - **API Secret**: secret_test_xyz789
 - **ID**: 550e8400-e29b-41d4-a716-446655440000
 
+###Video DEMO Link 
+https://www.youtube.com/watch?v=VsshfV0sTPY
+
 ## API Endpoints
 
 ### Health Check
